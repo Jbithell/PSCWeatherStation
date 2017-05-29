@@ -68,6 +68,7 @@ function drawChart() {
                     humiditygaugechartdata.setValue(0, 1, response.message["humidity"]);
                     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
                     $("#lastupdate").html("Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
+                    compassDraw(response.message["windDirection"]);
                 }
 
             }, error: function (jqXHR, exception) {
@@ -75,8 +76,8 @@ function drawChart() {
             }
         });
     }
-    updatedata();
     Compassinit();
+    updatedata();
     setInterval(function () {
         updatedata();
     }, 1000*30);

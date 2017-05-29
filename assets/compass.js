@@ -2,7 +2,6 @@
 var compassImg = null,
     compassNeedle = null,
     compassCTX = null,
-    compassDegrees = 0,
     compassDiv = 'compass',
     compassDivWidth = 0,
     compassDivHeight = 0;
@@ -11,7 +10,7 @@ function compassClearcompassCanvas() {
     compassDivHeight = $('#' + compassDiv).height();
     compassCTX.clearRect(0, 0, compassDivWidth, compassDivHeight);
 }
-function compassDraw() {
+function compassDraw(compassDegrees) {
     compassClearcompassCanvas();
     // compassDraw the compass onto the compassCanvas
     compassCTX.drawImage(compassImg, 0, 0);
@@ -25,12 +24,6 @@ function compassDraw() {
     compassCTX.drawImage(compassNeedle, (compassDivWidth/2)*-1, (compassDivHeight/2)*-1);
     // Restore the previous compassDrawing state
     compassCTX.restore();
-    // Increment the angle of the compassNeedle by 5 compassDegrees
-    compassDegrees += 5;
-}
-function compassImgLoaded() {
-    // Image loaded event complete.  Start the timer
-    setInterval(compassDraw, 100);
 }
 function Compassinit() {
     // Grab the compass element
@@ -51,6 +44,6 @@ function Compassinit() {
         compassImg.src = 'assets/img/compass.png';
         compassImg.width = compassDivWidth;
         compassImg.height = compassDivHeight;
-        compassImg.onload = compassImgLoaded;
+        compassDraw(0);
     }
 }

@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="en" xml:lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Porthmadog Sailing Club Weather">
+    <meta name="author" content="James Bithell">
+    <title>Porthmadog Sailing Club - Weather Station</title>
+    <!--Jquery--->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+    <!--Bootstrap-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
+    <!--Bootbox-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+    <!-- Custom Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" integrity="sha256-AIodEDkC8V/bHBkfyxzolUMw57jeQ9CauwhVW6YJ9CA=" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
+    <!--Google Charts-->
+    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--Main Script-->
+    <script src="assets/main.js"></script>
+    <style>
+        .modal-dialog {
+            color: black;
+        }
+        body {
+            background-image: url("assets/img/background-compressed.jpg");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size:cover;
+            background-position: center bottom;
+        }
+        a:link {
+            color: black;
+        }
+        a:visited {
+            color: inherit;
+        }
+        a:hover {
+            color: inherit;
+        }
+        a:active {
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="jumbotron" style="opacity: 0.8; margin-top: 25px; text-align: center;">
+        <div class="row">
+            <div class="col-md-9" style="vertical-align: top;">
+                <h2>Porthmadog Sailing Club Weather Station</h2>
+                <h4 style="text-align: left;">
+                    <i>
+                        The Sailing Club's Energy Meter tracks current electrical throughput (for the whole club, in kW) against time. <br/>
+                        The current reading from the system is shown on the gauge, though there can often be a few seconds delay to allow for reading transmission
+                    </i>
+                </h4>
+            </div>
+            <div class="col-md-3">
+                <div id="mainmeterlive" style="width: 100%; min-height: 200px;"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <br/>
+                <center>
+                    <a href="#" data-toggle="modal" data-target="#aboutmodal" type="button" class="btn btn-default"><i class="fa fa-info-circle"></i> About</a>
+                    <a href="https://stats.uptimerobot.com/k5YBksXJ7" target="_blank" type="button" class="btn btn-default"><i class="fa fa-cloud"></i> System Self-Monitoring</a>
+                </center>
+                <br/>
+                <h4>
+                    <a href="http://sailing-club.org" target="_blank">Porthmadog Sailing Club, The Harbour, Porthmadog, Gwynedd, LL49 9AY</a> | Site &copy;2017 <a href="https://www.jbithell.com">James Bithell</a>
+                </h4>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="downloadmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><i class="fa fa-cloud-download"></i> Downloads</h4>
+            </div>
+            <div class="modal-body" id="downloadmodalbody" style="display: none; padding: 0px;">
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td>
+                            Complete Data (ever few seconds)<br/>
+                            <i>1 Week of Data per file</i>
+                        </td>
+                        <td>
+                            <select class="form-control" id="weekexportselect"></select>
+                        </td>
+                        <td><button id="weekdatabutton" class="btn btn-default" target="_blank"><i class="fa fa-download"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Data for every minute<br/>
+                            <i>1 Month of Data per file</i>
+                        </td>
+                        <td><select class="form-control" id="monthexportselect"></select></td>
+                        <td><button  id="monthdatabutton" class="btn btn-default" target="_blank"><i class="fa fa-download"></i></button></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Data for every hour<br/>
+                            <i>1 Year of Data per file</i>
+                        </td>
+                        <td><select class="form-control" id="yearexportselect"></select></td>
+                        <td><button id="yeardatabutton" class="btn btn-default" target="_blank"><i class="fa fa-download"></i></button></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <p style="padding: 5px;"><i>Not all data is available for all days (especially during late 2016) due to occasional system outages<br /><b>All times are in UTC (GMT) - and are not adjusted for summer time</b></i></p>
+            </div>
+            <div class="modal-footer" id="downloadmodalloading">
+                <center><i>Loading Options (this can take upto a minute)...</i></center>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="aboutmodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">About</h4>
+            </div>
+            <div class="modal-body">
+                <p>The system tracks weather in the Porthmadog estury using a Davis Vantage Vue and a Raspberry Pi</p>
+                <p>Originally Developed in May 2017 by James Bithell</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!--JBITHELL.COM FLEET UPTIME TRACKING-->
+<!--62gW2d5ct2J78j69f8Wcvv452NeqEkvBe8R64kRA3K39t3GBGj-->
+<!--END JBITHELL.COM FLEET UPTIME TRACKING-->
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-26373319-6', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>

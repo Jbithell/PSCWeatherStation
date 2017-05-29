@@ -24,13 +24,13 @@ function drawChart() {
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
 
-    var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
+    var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['°C', 0]]);
     var tempgaugechartoptions = {
         width: "100%",
         redFrom: 30,
         redTo: 40,
         yellowFrom: -20,
-        yellowTo: 10,
+        yellowTo: 00,
         min: -20,
         max: 40,
         minorTicks: 5,
@@ -40,7 +40,7 @@ function drawChart() {
     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
 
-    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
+    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['%', 0]]);
     var humiditygaugechartoptions = {
         width: "100%",
         redFrom: 95,
@@ -53,26 +53,34 @@ function drawChart() {
     var humiditygaugechart = new google.visualization.Gauge(document.getElementById('humiditygauge'));
     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
 
-
-    setInterval(function () {
+    function updatedata() {
+        $("#updatestatus").addClass("fa-spin");
         $.ajax({
-            url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', type: 'json', success: function (response) {
+            url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', success: function (response) {
                 console.log(response);
-                tempgaugechartdata.setValue(0, 1, response["temperatureC"]);
-                tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
+                if (response.success) {
+                    tempgaugechartdata.setValue(0, 1, response.message.temperatureC);
+                    tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
-                windgaugechartdata.setValue(0, 1, response["windSpeedMPH"]);
-                windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
+                    windgaugechartdata.setValue(0, 1, response.message["windSpeedMPH"]);
+                    windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
-                humiditygaugechartdata.setValue(0, 1, response["humitidy"]);
-                humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
+                    humiditygaugechartdata.setValue(0, 1, response.message["humidity"]);
+                    humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
+                    $("#lastupdate").html("Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
+                }
+
             }, error: function (jqXHR, exception) {
                 console.log("Couldn't get weather data");
             }
         });
-    }, 2000);
+    }
+    updatedata();
+    Compassinit();
+    setInterval(function () {
+        updatedata();
+    }, 1000*30);
 }
-
 
 
 

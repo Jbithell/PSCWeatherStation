@@ -22,6 +22,7 @@
     <script src="https://www.gstatic.com/charts/loader.js"></script>
     <!--Main Script-->
     <script src="assets/main.js"></script>
+    <script src="assets/compass.js"></script>
     <style>
         .modal-dialog {
             color: black;
@@ -51,31 +52,32 @@
 <div class="container">
     <div class="jumbotron" style="opacity: 0.8; margin-top: 25px; text-align: center;">
         <div class="row">
-            <div class="col-md-9" style="vertical-align: top;">
+            <div class="col-md-8" style="vertical-align: top;">
                 <h2>Porthmadog Sailing Club Weather Station</h2>
                 <div class="row">
                     <div class="col-md-4">
-                        <div id="tempgauge" style="width: 100%; min-height: 150px;"></div>
+                        <div id="tempgauge" style="width: 100%; min-height: 180px;"></div>
                     </div>
                     <div class="col-md-4">
-                        <div id="humiditygauge" style="width: 100%; min-height: 150px;"></div>
+                        <div id="humiditygauge" style="width: 100%; min-height: 180px;"></div>
                     </div>
                     <div class="col-md-4">
-
+                        <canvas id="compass" style="width: 100%; min-height: 180px;"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div id="windgauge" style="width: 100%; min-height: 200px;"></div>
+            <div class="col-md-4">
+                <div id="windgauge" style="width: 100%; min-height: 250px;"></div>
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-12" style="text-align: right;">
+                <div id="lastupdate" style="font-style: italic;"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
+            </div>
+            <div class="col-lg-12" style="text-align: center;">
                 <br/>
-                <center>
-                    <a href="#" data-toggle="modal" data-target="#aboutmodal" type="button" class="btn btn-default"><i class="fa fa-info-circle"></i> About</a>
+                <a href="#" data-toggle="modal" data-target="#aboutmodal" type="button" class="btn btn-default"><i class="fa fa-info-circle"></i> About</a>
                     <a href="https://stats.uptimerobot.com/k5YBksXJ7" target="_blank" type="button" class="btn btn-default"><i class="fa fa-cloud"></i> System Self-Monitoring</a>
-                </center>
                 <br/>
                 <h4>
                     <a href="http://sailing-club.org" target="_blank">Porthmadog Sailing Club, The Harbour, Porthmadog, Gwynedd, LL49 9AY</a> | Site &copy;2017 <a href="https://www.jbithell.com">James Bithell</a>

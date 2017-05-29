@@ -23,6 +23,7 @@ function drawChart() {
     var windgaugechart = new google.visualization.Gauge(document.getElementById('windgauge'));
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
+
     var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
     var tempgaugechartoptions = {
         width: "100%",
@@ -38,6 +39,7 @@ function drawChart() {
     var tempgaugechart = new google.visualization.Gauge(document.getElementById('tempgauge'));
     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
+
     var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
     var humiditygaugechartoptions = {
         width: "100%",
@@ -52,21 +54,20 @@ function drawChart() {
     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
 
 
-
-
-
     setInterval(function () {
         $.ajax({
             url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', type: 'json', success: function (response) {
                 console.log(response);
-                if (response == "OUTOFSYNC") {
-                    hideguage();
-                } else if ($.isNumeric(response)) {
-                    tempgaugechartdata.setValue(0, 1, response);
-                    tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
-                } else {
-                }
+                tempgaugechartdata.setValue(0, 1, response["temperatureC"]);
+                tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
+
+                windgaugechartdata.setValue(0, 1, response["windSpeedMPH"]);
+                windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
+
+                humiditygaugechartdata.setValue(0, 1, response["humitidy"]);
+                humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
             }, error: function (jqXHR, exception) {
+                console.log("Couldn't get weather data");
             }
         });
     }, 2000);

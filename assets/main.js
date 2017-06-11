@@ -2,7 +2,7 @@ var loadingdialog, nointernetdialog;
 var nointernetdialogshown = false;
 $( document ).ready(function() {
     loadingdialog = bootbox.dialog({
-        message: '<p class="text-center"><i class="fa fa-spinner fa-5x fa-pulse"></i><br/><br/><i>Loading Site...</i></p>',
+        message: '<p class="text-center"><i class="fa fa-spinner fa-5x fa-pulse"></i><br/><br/><i>Loading...</i></p>',
         closeButton: false
     });
 });

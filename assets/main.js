@@ -112,7 +112,7 @@ function drawChart() {
 
             }, error: function (jqXHR, exception) {
                 console.log("Couldn't get weather data");
-                if (nointernetdialogshown != true) {
+                if (nointernetdialogshown == false) {
                     nointernetdialog = bootbox.dialog({
                         message: '<p class="text-center">Error - could not download data updates - please check your internet connection or try again later<br/><br/><i>If this error persists please contact James Bithell using the details at <a href="https://www.jbithell.com" target="_blank">https://www.jbithell.com</a></i><br/><br/></p>',
                         closeButton: false

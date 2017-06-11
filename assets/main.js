@@ -26,6 +26,7 @@ function drawChart() {
         width: chartwidth,
         height: chartheight
     };
+
     var windgaugechart = new google.visualization.Gauge(document.getElementById('windgauge'));
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
@@ -81,6 +82,15 @@ function drawChart() {
                         $("#outofdatedata").fadeOut();
                         $(".datadisplay").show();
                     }
+
+                    //Refresh width and height incase window was re-sized
+                    windgaugechartoptions.width = $("#compassimage").width();
+                    windgaugechartoptions.height = $("#compassimage").width();
+                    tempgaugechartoptions.width = $("#compassimage").width();
+                    tempgaugechartoptions.height = $("#compassimage").width();
+                    humiditygaugechartoptions.width = $("#compassimage").width();
+                    humiditygaugechartoptions.height = $("#compassimage").width();
+
 
                     tempgaugechartdata.setValue(0, 1, response.message.temperatureC);
                     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);

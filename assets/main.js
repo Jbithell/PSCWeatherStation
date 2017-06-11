@@ -1,4 +1,5 @@
 var loadingdialog, nointernetdialog;
+var nointernetdialogshown = false;
 $( document ).ready(function() {
     loadingdialog = bootbox.dialog({
         message: '<p class="text-center"><i class="fa fa-spinner fa-5x fa-pulse"></i><br/><br/><i>Loading Site...</i></p>',
@@ -94,16 +95,21 @@ function drawChart() {
                     $(window).trigger('resize'); //To refresh the display handling
                     $("#loading").hide(0)
                     loadingdialog.modal('hide');
+                    if (nointernetdialogshown) {
+                        nointernetdialog.modal('hide');
+                    }
                 }
 
             }, error: function (jqXHR, exception) {
                 console.log("Couldn't get weather data");
-                nointernetdialog = bootbox.dialog({
-                    message: '<p class="text-center">Error - could not download data updates - please check your internet connection or try again later<br/><br/><i>If this error persists please contact James Bithell using the details at <a href="https://www.jbithell.com" target="_blank">https://www.jbithell.com</a></i></p>',
-                    callback: function () {
-                        window.reload();
-                    }
-                });
+                if (nointernetdialogshown != true) {
+                    nointernetdialog = bootbox.dialog({
+                        message: '<p class="text-center">Error - could not download data updates - please check your internet connection or try again later<br/><br/><i>If this error persists please contact James Bithell using the details at <a href="https://www.jbithell.com" target="_blank">https://www.jbithell.com</a></i><br/><br/></p>',
+                        closeButton: false
+                    });
+                    nointernetdialogshown = true;
+                }
+
             }
         });
     }

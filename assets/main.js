@@ -1,3 +1,10 @@
+var loadingdialog, nointernetdialog;
+$( document ).ready(function() {
+    loadingdialog = bootbox.dialog({
+        message: '<p class="text-center"><i class="fa fa-spinner fa-5x fa-pulse"></i><br/><br/><i>Loading Site...</i></p>',
+        closeButton: false
+    });
+});
 google.charts.load('current', {'packages': ['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 function hideguage() {
@@ -57,8 +64,23 @@ function drawChart() {
         $("#updatestatus").addClass("fa-spin");
         $.ajax({
             url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', success: function (response) {
-                console.log(response);
                 if (response.success) {
+                    timedifference = response["sent-time"] - response.message["timestamp"]; //timedifference gives you a number in seconds (it's server-server relative so should be acurate) of how upto date the data you're getting is
+                    if ((timedifference/60) > 60) {
+                        //Over 1 hour out of date
+                        $(".datadisplay").hide();
+                        $("#nodata").html('<strong>Error</strong> We have not received data from the Weather Station for ' + Math.round(timedifference/3600) + ' hour' + ((timedifference/3600) != 1 ? 's' : ''));
+                        $("#nodata").fadeIn();
+                    } else if ((timedifference/60) > 5) {
+                        //5 minutes or more (upto 1 hour) out of date
+                        $("#outofdatedata").html('<strong>Warning</strong> Data is ' + Math.round(timedifference/60) + ' minute' + ((timedifference/60) != 1 ? 's' : '') + ' out of date');
+                        $("#outofdatedata").fadeIn();
+                        $(".datadisplay").show();
+                    } else {
+                        $("#outofdatedata").fadeOut();
+                        $(".datadisplay").show();
+                    }
+
                     tempgaugechartdata.setValue(0, 1, response.message.temperatureC);
                     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
@@ -68,15 +90,23 @@ function drawChart() {
                     humiditygaugechartdata.setValue(0, 1, response.message["humidity"]);
                     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
                     $("#lastupdate").html("Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
-                    compassDraw(response.message["windDirection"]);
+                    $("#compassimage").attr("src", "assets/img/compass/" + (Math.round(response.message["windDirection"] / 10) * 10) + ".png");
+                    $(window).trigger('resize'); //To refresh the display handling
+                    $("#loading").hide(0)
+                    loadingdialog.modal('hide');
                 }
 
             }, error: function (jqXHR, exception) {
                 console.log("Couldn't get weather data");
+                nointernetdialog = bootbox.dialog({
+                    message: '<p class="text-center">Error - could not download data updates - please check your internet connection or try again later<br/><br/><i>If this error persists please contact James Bithell using the details at <a href="https://www.jbithell.com" target="_blank">https://www.jbithell.com</a></i></p>',
+                    callback: function () {
+                        window.reload();
+                    }
+                });
             }
         });
     }
-    Compassinit();
     updatedata();
     setInterval(function () {
         updatedata();
@@ -94,7 +124,7 @@ function drawChart() {
 
 
 
-
+/*
 $(document).ready(function () {
     $('#downloadmodal').on('shown.bs.modal', function () {
         $.ajax({
@@ -137,3 +167,4 @@ $(document).ready(function () {
         window.open("api/export/year.php?meterid=1&value=" + $("#yearexportselect").val(), '_blank');
     });
 });
+*/

@@ -6,9 +6,14 @@ $( document ).ready(function() {
         closeButton: false
     });
 });
+$(window).on('resize', function(){
+    drawChart();
+});
 google.charts.load('current', {'packages': ['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {
+    chartwidth = $("#compassimage").width();
+    chartheight = $("#compassimage").height();
     var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
     var windgaugechartoptions = {
         redFrom: 30,
@@ -20,7 +25,9 @@ function drawChart() {
         min: 0,
         max: 100,
         minorTicks: 5,
-        majorTicks: 10
+        majorTicks: 10,
+        width: chartwidth,
+        height: chartheight
     };
     var windgaugechart = new google.visualization.Gauge(document.getElementById('windgauge'));
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
@@ -35,7 +42,9 @@ function drawChart() {
         min: -20,
         max: 40,
         minorTicks: 5,
-        majorTicks: 10
+        majorTicks: 10,
+        width: chartwidth,
+        height: chartheight
     };
     var tempgaugechart = new google.visualization.Gauge(document.getElementById('tempgauge'));
     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
@@ -48,7 +57,9 @@ function drawChart() {
         min: 0,
         max: 100,
         minorTicks: 10,
-        majorTicks: 20
+        majorTicks: 20,
+        width: chartwidth,
+        height: chartheight
     };
     var humiditygaugechart = new google.visualization.Gauge(document.getElementById('humiditygauge'));
     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);

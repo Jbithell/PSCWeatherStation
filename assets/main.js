@@ -6,9 +6,6 @@ $( document ).ready(function() {
         closeButton: false
     });
 });
-$(window).on('resize', function(){
-    drawChart();
-});
 google.charts.load('current', {'packages': ['gauge']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart() {

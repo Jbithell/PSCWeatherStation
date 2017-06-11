@@ -8,15 +8,9 @@ $( document ).ready(function() {
 });
 google.charts.load('current', {'packages': ['gauge']});
 google.charts.setOnLoadCallback(drawChart);
-function hideguage() {
-    $("#windgauge").html('<p><i>Data Offline</i></p>');
-    $("#tempgauge").html('<p><i>Data Offline</i></p>');
-    $("#humiditygauge").html('<p><i>Data Offline</i></p>');
-}
 function drawChart() {
     var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
     var windgaugechartoptions = {
-        width: "100%",
         redFrom: 30,
         redTo: 100,
         yellowFrom: 20,
@@ -34,7 +28,6 @@ function drawChart() {
 
     var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['°C', 0]]);
     var tempgaugechartoptions = {
-        width: "100%",
         redFrom: 30,
         redTo: 40,
         yellowFrom: -20,
@@ -50,7 +43,6 @@ function drawChart() {
 
     var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['%', 0]]);
     var humiditygaugechartoptions = {
-        width: "100%",
         redFrom: 95,
         redTo: 100,
         min: 0,

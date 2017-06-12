@@ -157,7 +157,7 @@ function drawChart() {
                     windaveragegaugechartdata.setValue(0, 1, response.message["windSpeed10MinAverageMPH"]);
                     windaveragegaugechart.draw(windaveragegaugechartdata, windaveragegaugechartoptions);
 
-                    //windgustgaugechartdata.setValue(0, 1, response.message["windSpeed10MinAverageMPH"]);
+                    windgustgaugechartdata.setValue(0, 1, response.message["windSpeed10MinGustMPH"]);
                     windgustgaugechart.draw(windgustgaugechartdata, windgustgaugechartoptions);
 
                     

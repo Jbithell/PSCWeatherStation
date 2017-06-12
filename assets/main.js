@@ -22,7 +22,7 @@ function drawChart() {
     //Set chart configs
     chartwidth = $("#compassimage").width();
     chartheight = $("#compassimage").height();
-    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['MPH', 0]]);
+    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Wind Speed (MPH)', 0]]);
     var windgaugechartoptions = {
         redFrom: 30,
         redTo: 100,
@@ -59,7 +59,7 @@ function drawChart() {
     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
 
-    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['%', 0]]);
+    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['% Humidity', 0]]);
     var humiditygaugechartoptions = {
         redFrom: 95,
         redTo: 100,

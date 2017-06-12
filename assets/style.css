@@ -34,5 +34,5 @@ a:active {
     text-decoration: none;
 }
 svg:first-child > g > text[text-anchor~=middle]{
-    font-size:14px; /* Font size for guages */
+    /*font-size:14px;*/ /* Font size for gauges */
 }

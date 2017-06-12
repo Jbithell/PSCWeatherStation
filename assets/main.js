@@ -22,7 +22,7 @@ function drawChart() {
     //Set chart configs
     chartwidth = $("#compassimage").width();
     chartheight = $("#compassimage").height();
-    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Wind MPH', 0]]);
+    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Speed', 0]]);
     var windgaugechartoptions = {
         redFrom: 30,
         redTo: 100,
@@ -42,7 +42,7 @@ function drawChart() {
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
 
-    var windaveragegaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Average MPH', 0]]);
+    var windaveragegaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Average', 0]]);
     var windaveragegaugechartoptions = {
         redFrom: 30,
         redTo: 100,
@@ -62,7 +62,7 @@ function drawChart() {
     windaveragegaugechart.draw(windaveragegaugechartdata, windaveragegaugechartoptions);
 
 
-    var windgustgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Gust MPH', 0]]);
+    var windgustgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Gust', 0]]);
     var windgustgaugechartoptions = {
         redFrom: 30,
         redTo: 100,
@@ -81,7 +81,7 @@ function drawChart() {
     var windgustgaugechart = new google.visualization.Gauge(document.getElementById('windgustgauge'));
     windgustgaugechart.draw(windgustgaugechartdata, windgustgaugechartoptions);
 
-    var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['°C', 0]]);
+    var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Temp °C', 0]]);
     var tempgaugechartoptions = {
         redFrom: 30,
         redTo: 40,
@@ -98,7 +98,7 @@ function drawChart() {
     tempgaugechart.draw(tempgaugechartdata, tempgaugechartoptions);
 
 
-    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['% Humidity', 0]]);
+    var humiditygaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Humidity %', 0]]);
     var humiditygaugechartoptions = {
         redFrom: 95,
         redTo: 100,
@@ -165,7 +165,7 @@ function drawChart() {
                     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
 
                     //Update page HTML as required
-                    $("#lastupdate").html("Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
+                    $("#lastupdate").html("Wind speeds in MPH | Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
                     $("#compassimage").attr("src", "assets/img/compass/" + (Math.round(response.message["windDirection"] / 10) * 10) + ".png");
                     $(window).trigger('resize'); //To refresh the display handling
                     $("#loading").hide();

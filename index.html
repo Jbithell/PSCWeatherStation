@@ -8,10 +8,20 @@
     <meta name="author" content="James Bithell">
     <title>Porthmadog Sailing Club - Weather Station</title>
     <!--Jquery--->
-    <script src="assets/jquery.min.js"></script>
+    <script src="assets/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
     <!--Bootstrap-->
     <link rel="stylesheet" href="assets/bootstrap.min.css"/>
     <script type="text/javascript" src="assets/bootstrap.min.js"></script>
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/webicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/webicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/img/webicons/favicon-16x16.png">
+    <link rel="manifest" href="assets/img/webicons/manifest.json">
+    <link rel="mask-icon" href="assets/img/webicons/safari-pinned-tab.svg" color="#000000">
+    <link rel="shortcut icon" href="assets/img/webicons/favicon.ico">
+    <meta name="msapplication-config" content="assets/img/webicons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
     <!--Bootbox-->
     <script src="assets/bootbox.min.js"></script>
     <!-- Custom Fonts -->
@@ -70,9 +80,9 @@
             </div>
             <div class="col-lg-12" style="text-align: center;">
                 <br/>
-                <a href="#" data-toggle="modal" data-target="#aboutwindmodal" type="button" class="btn btn-default"><i class="fa fa-table"></i> Data Information</a>
-                <a href="#" data-toggle="modal" data-target="#aboutmodal" type="button" class="btn btn-default"><i
-                        class="fa fa-info-circle"></i> About</a>
+                <button data-toggle="modal" data-target="#aboutwindmodal" class="btn btn-default"><i class="fa fa-table"></i> Data Information</button>
+                <button data-toggle="modal" data-target="#aboutmodal" class="btn btn-default"><i
+                        class="fa fa-info-circle"></i> About</button>
                 <a href="https://stats.uptimerobot.com/k5YBksXJ7" target="_blank" type="button" class="btn btn-default"><i
                         class="fa fa-cloud"></i> System Self-Monitoring</a>
                 <br/>

@@ -42,6 +42,45 @@ function drawChart() {
     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
 
+    var windaveragegaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Average MPH', 0]]);
+    var windaveragegaugechartoptions = {
+        redFrom: 30,
+        redTo: 100,
+        yellowFrom: 20,
+        yellowTo: 30,
+        greenFrom: 10,
+        greenTo: 20,
+        min: 0,
+        max: 100,
+        minorTicks: 5,
+        majorTicks: 10,
+        width: chartwidth,
+        height: chartheight
+    };
+
+    var windaveragegaugechart = new google.visualization.Gauge(document.getElementById('windaveragegauge'));
+    windaveragegaugechart.draw(windaveragegaugechartdata, windaveragegaugechartoptions);
+
+
+    var windgustgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Gust MPH', 0]]);
+    var windgustgaugechartoptions = {
+        redFrom: 30,
+        redTo: 100,
+        yellowFrom: 20,
+        yellowTo: 30,
+        greenFrom: 10,
+        greenTo: 20,
+        min: 0,
+        max: 100,
+        minorTicks: 5,
+        majorTicks: 10,
+        width: chartwidth,
+        height: chartheight
+    };
+
+    var windgustgaugechart = new google.visualization.Gauge(document.getElementById('windgustgauge'));
+    windgustgaugechart.draw(windgustgaugechartdata, windgustgaugechartoptions);
+
     var tempgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['°C', 0]]);
     var tempgaugechartoptions = {
         redFrom: 30,
@@ -94,10 +133,15 @@ function drawChart() {
                         $("#outofdatedata").fadeOut();
                         $(".datadisplay").show();
                     }
+                    
 
                     //Refresh width and height incase window was re-sized
                     windgaugechartoptions.width = $("#compassimage").width();
                     windgaugechartoptions.height = $("#compassimage").width();
+                    windaveragegaugechartoptions.width = $("#compassimage").width();
+                    windaveragegaugechartoptions.height = $("#compassimage").width();
+                    windgustgaugechartoptions.width = $("#compassimage").width();
+                    windgustgaugechartoptions.height = $("#compassimage").width();
                     tempgaugechartoptions.width = $("#compassimage").width();
                     tempgaugechartoptions.height = $("#compassimage").width();
                     humiditygaugechartoptions.width = $("#compassimage").width();
@@ -110,6 +154,13 @@ function drawChart() {
                     windgaugechartdata.setValue(0, 1, response.message["windSpeedMPH"]);
                     windgaugechart.draw(windgaugechartdata, windgaugechartoptions);
 
+                    windaveragegaugechartdata.setValue(0, 1, response.message["windSpeed10MinAverageMPH"]);
+                    windaveragegaugechart.draw(windaveragegaugechartdata, windaveragegaugechartoptions);
+
+                    //windgustgaugechartdata.setValue(0, 1, response.message["windSpeed10MinAverageMPH"]);
+                    windgustgaugechart.draw(windgustgaugechartdata, windgustgaugechartoptions);
+
+                    
                     humiditygaugechartdata.setValue(0, 1, response.message["humidity"]);
                     humiditygaugechart.draw(humiditygaugechartdata, humiditygaugechartoptions);
 
@@ -119,7 +170,6 @@ function drawChart() {
                     $(window).trigger('resize'); //To refresh the display handling
                     $("#loading").hide();
                     loadingdialog.modal('hide');
-
                     //Remove no-internet modal if it's there
                     if (nointernetdialogshown) {
                         nointernetdialog.modal('hide');

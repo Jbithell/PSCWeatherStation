@@ -1,0 +1,15 @@
+{
+  "name": "PSCWeatherStation",
+  "version": "1.1.0",
+  "description": "A weather station for Porthmaodg sailing club",
+  "main": "assets/electron.js",
+  "repository": "https://github.com/Jbithell/PSCWeatherStation",
+  "keywords": [
+    "weather",
+    "jbithell",
+  ],
+  "author": "James Bithell",
+  "devDependencies": {
+    "electron": "~1.6.2"
+  }
+}

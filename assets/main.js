@@ -22,7 +22,7 @@ function drawChart() {
     //Set chart configs
     chartwidth = $("#compassimage").width();
     chartheight = $("#compassimage").height();
-    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Wind Speed (MPH)', 0]]);
+    var windgaugechartdata = google.visualization.arrayToDataTable([['Label', 'Value'], ['Wind MPH', 0]]);
     var windgaugechartoptions = {
         redFrom: 30,
         redTo: 100,

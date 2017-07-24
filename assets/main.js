@@ -188,7 +188,8 @@ function drawChart() {
                     nointernetdialogshown = true;
                 }
 
-            }
+            }, 
+            cache: false
         });
     }
     updatedata();

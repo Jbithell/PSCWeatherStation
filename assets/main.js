@@ -119,7 +119,7 @@ function drawChart() {
         $.ajax({
             url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', success: function (response) {
                 if (response.success) {
-                    if (response.message.closed) {
+                    if (response.message.closed == true) {
                         //Winter closure of weather station - although it can be used for any time of year really
                         console.log("Closed");
                         $("#loading").hide();

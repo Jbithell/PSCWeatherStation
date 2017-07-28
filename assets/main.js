@@ -4,7 +4,7 @@ var minutesbeforefail = 120; //How many minutes out of date should the data be b
 var pollforupdatesseconds = 30; //How often (in seconds) to check for an update on the server
 
 //Initialize some vars
-var loadingdialog, nointernetdialog;
+var loadingdialog, nointernetdialog, closeddialog;
 var nointernetdialogshown = false;
 
 //Loading box
@@ -119,6 +119,24 @@ function drawChart() {
         $.ajax({
             url: 'https://www.jbithell.com/projects/psc/weatherapi/live.php', success: function (response) {
                 if (response.success) {
+                    if (response.message.closed) {
+                        //Winter closure of weather station - although it can be used for any time of year really
+                        console.log("Closed");
+                        $("#loading").hide();
+                        loadingdialog.modal('hide');
+                        //Remove no-internet modal if it's there
+                        if (nointernetdialogshown) {
+                            nointernetdialog.modal('hide');
+                        }
+                        $(".datadisplay").hide();
+                        $("#stationcloseddialogue").show();
+                        $("#stationclosedmessage").html(response.message.message);
+
+                        return false;
+                    } else {
+                        $("#stationcloseddialogue").hide();
+                    }
+
                     timedifference = response["sent-time"] - response.message["timestamp"]; //timedifference gives you a number in seconds (it's server-server relative so should be acurate) of how upto date the data you're getting is
                     if ((timedifference/60) > minutesbeforefail) {
                         //Over 1 hour out of date

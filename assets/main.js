@@ -37,15 +37,10 @@ function sizeCharts() {
         var dimensions = (($('#maindisplayrow').width()));
     }
 
-    console.log(dimensions);
     $('canvas[data-type="radial-gauge"]').attr('data-width', dimensions);
     $('canvas[data-type="radial-gauge"]').attr('data-height', dimensions);
 }
 function drawCharts(callback) {
-    console.log("Drawing Charts");
-
-    //Use this space to make any JS adjustments to display of charts
-
     gauges["winddirectiongauge"] = document.gauges.get('winddirectiongauge');
     gauges["windgauge"] = document.gauges.get('windgauge');
     gauges["windaveragegauge"] = document.gauges.get('windaveragegauge');
@@ -53,7 +48,6 @@ function drawCharts(callback) {
     gauges["humiditygauge"] = document.gauges.get('humiditygauge');
     gauges["tempgauge"] = document.gauges.get('tempgauge');
 
-    console.log("Charts Drawn");
     if( typeof callback == "function" ) {
         callback();
     } else {
@@ -68,7 +62,6 @@ function updatedata() {
             if (response.success) {
                 if (response.message.closed == true) {
                     //Winter closure of weather station - although it can be used for any time of year really
-                    console.log("Closed");
                     $("#loading").hide();
                     loadingdialog.modal('hide');
                     //Remove no-internet modal if it's there
@@ -101,14 +94,12 @@ function updatedata() {
                 }
 
 
-                console.log("Setting values");
                 gauges["winddirectiongauge"].value = response.message['windDirection'];
                 gauges["windgauge"].value = response.message['windSpeedMPH'];
                 gauges["windaveragegauge"].value = response.message['windSpeed10MinAverageMPH'];
                 gauges["windgustgauge"].value = response.message['windSpeed10MinGustMPH'];
                 gauges["tempgauge"].value = response.message['temperatureC'];
                 gauges["humiditygauge"].value = response.message['humidity'];
-                console.log("Values set");
 
                 //Update page HTML as required
                 $("#lastupdate").html("Last updated " + response.message["niceFormatTime"] + ' <i id="updatestatus" class="fa fa-refresh fa-fw"></i>');
@@ -123,7 +114,6 @@ function updatedata() {
             }
 
         }, error: function (jqXHR, exception) {
-            console.log("Couldn't get weather data");
             //If can't connect to internet/server show a modal (unless it's already showing)
             if (nointernetdialogshown == false) {
                 nointernetdialog = bootbox.dialog({

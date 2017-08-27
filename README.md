@@ -1,3 +1,3 @@
 # PSCWeather
 
-![Screenshot](assets/img/github/screenshot1.png)
+![Screenshot](https://raw.githubusercontent.com/Jbithell/PSCWeatherStation/master/assets/img/github/screenshot1.PNG)

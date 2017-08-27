@@ -7,12 +7,6 @@
     <meta name="description" content="Porthmadog Sailing Club Weather">
     <meta name="author" content="James Bithell">
     <title>Porthmadog Sailing Club - Weather Station</title>
-    <!--Jquery--->
-    <script src="assets/jquery.min.js" onload="window.$ = window.jQuery = module.exports;"></script>
-    <!--Bootstrap-->
-    <link rel="stylesheet" href="assets/bootstrap.min.css"/>
-    <script type="text/javascript" src="assets/bootstrap.min.js"></script>
-
 
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/webicons/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="assets/img/webicons/favicon-32x32.png">
@@ -22,14 +16,21 @@
     <link rel="shortcut icon" href="assets/img/webicons/favicon.ico">
     <meta name="msapplication-config" content="assets/img/webicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
+
+    <script src="assets/jquery.min.js" onload="window.$ = window.jQuery;"></script>
+    <link rel="stylesheet" href="assets/bootstrap.min.css"/>
+    <script type="text/javascript" src="assets/bootstrap.min.js"></script>
     <!--Bootbox-->
     <script src="assets/bootbox.min.js"></script>
     <!-- Custom Fonts -->
     <link rel="stylesheet" href="assets/font-awesome/css/font-awesome.min.css"/>
-    <!--Google Charts-->
-    <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--Gauage-->
+    <script src="assets/gauge.min.js"></script>
     <!--Main Script-->
     <link rel="stylesheet" href="assets/style.css"/>
+    <!--Pace JS-->
+    <link rel="stylesheet" href="assets/pace-theme-minimal.css" />
+    <script data-pace-options='{ "ajax": true }' src='assets/pace.min.js'></script>
     <style>
         /* This stuff isn't in the stylesheet as there were issues with relative paths */
         body {
@@ -41,8 +42,6 @@
         }
     </style>
     <script src="assets/main.js"></script>
-
-
 </head>
 <body>
 <div class="container">
@@ -53,24 +52,189 @@
                 <div class="alert alert-danger" style="display: none;" id="nodata"><strong>Error</strong> We haven't been able to connect to the weather station to display data</div>
             </div>
         </div>
-        <div class="row datadisplay">
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <div id="tempgauge" style="width: 100%;"></div>
+        <div class="row datadisplay" id="maindisplayrow">
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                <canvas data-type="radial-gauge"
+                        data-units="Direction"
+                        data-min-value="0"
+                        data-max-value="360"
+                        data-major-ticks="N,NE,E,SE,S,SW,W,NW,N"
+                        data-minor-ticks="22"
+                        data-ticks-angle="360"
+                        data-start-angle="180"
+                        data-stroke-ticks="false"
+                        data-color-plate="#eee"
+                        data-color-needle="rgba(255, 0, 0, 1)"
+                        data-color-needle-end="rgba(255, 0, 0, 0.9)"
+                        data-value-box="false"
+                        data-value-text-shadow="false"
+                        data-needle-circle-size="15"
+                        data-needle-circle-outer="false"
+                        data-animation-rule="linear"
+                        data-needle-type="line"
+                        data-needle-start="75"
+                        data-needle-end="99"
+                        data-needle-width="3"
+                        data-borders="false"
+                        data-needle-type="arrow"
+                        data-animation-duration="500"
+                        data-highlights='[{"from": 225, "to": 22.5, "color": "rgba(255, 133, 26, 0.4)"}]'
+
+                        data-width="1"
+                        data-height="1"
+                        id="winddirectiongauge"
+
+                ></canvas>
             </div>
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <div id="humiditygauge" style="width: 100%;"></div>
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                <canvas data-type="radial-gauge"
+                        data-units="Wind Speed (mph)"
+                        data-min-value="0"
+                        data-max-value="60"
+                        data-major-ticks="0,5,10,15,20,25,30,35,40,45,50,55,60"
+                        data-minor-ticks="5"
+                        data-stroke-ticks="true"
+                        data-highlights='[{"from": 30, "to": 60, "color": "rgba(255, 0, 0, .75)"},{"from": 20, "to": 30, "color": "rgba(255, 133, 26, 0.75)"},{"from": 5, "to": 20, "color": "rgba(0, 255, 0, 0.75)"}]'
+                        data-color-plate="#eee"
+                        data-border-shadow-width="0"
+                        data-borders="false"
+                        data-needle-type="arrow"
+                        data-needle-width="2"
+                        data-needle-circle-size="7"
+                        data-needle-circle-outer="true"
+                        data-needle-circle-inner="false"
+                        data-animation-duration="500"
+                        data-animation-rule="linear"
+                        data-value-dec="0"
+                        data-value-box="2"
+
+                        data-width="1"
+                        data-height="1"
+
+                        id="windgauge"
+                ></canvas>
             </div>
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <div id="windgustgauge" style="width: 100%;"></div>
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                <canvas data-type="radial-gauge"
+                        data-units="Wind Gust (mph)"
+                        data-min-value="0"
+                        data-max-value="60"
+                        data-major-ticks="0,5,10,15,20,25,30,35,40,45,50,55,60"
+                        data-minor-ticks="5"
+                        data-stroke-ticks="true"
+                        data-highlights='[{"from": 30, "to": 60, "color": "rgba(255, 0, 0, .75)"},{"from": 20, "to": 30, "color": "rgba(255, 133, 26, 0.75)"},{"from": 5, "to": 20, "color": "rgba(0, 255, 0, 0.75)"}]'
+                        data-color-plate="#eee"
+                        data-border-shadow-width="0"
+                        data-borders="false"
+                        data-needle-type="arrow"
+                        data-needle-width="2"
+                        data-needle-circle-size="7"
+                        data-needle-circle-outer="true"
+                        data-needle-circle-inner="false"
+                        data-animation-duration="500"
+                        data-animation-rule="linear"
+                        data-value-dec="0"
+                        data-value-box="2"
+
+                        data-width="1"
+                        data-height="1"
+
+                        id="windgustgauge"
+                ></canvas>
             </div>
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <div id="windaveragegauge" style="width: 100%;"></div>
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                <canvas data-type="radial-gauge"
+                        data-units="Wind Average (mph)"
+                        data-min-value="0"
+                        data-max-value="60"
+                        data-major-ticks="0,5,10,15,20,25,30,35,40,45,50,55,60"
+                        data-minor-ticks="5"
+                        data-stroke-ticks="true"
+                        data-highlights='[{"from": 30, "to": 60, "color": "rgba(255, 0, 0, .75)"},{"from": 20, "to": 30, "color": "rgba(255, 133, 26, 0.75)"},{"from": 5, "to": 20, "color": "rgba(0, 255, 0, 0.75)"}]'
+                        data-color-plate="#eee"
+                        data-border-shadow-width="0"
+                        data-borders="false"
+                        data-needle-type="arrow"
+                        data-needle-width="2"
+                        data-needle-circle-size="7"
+                        data-needle-circle-outer="true"
+                        data-needle-circle-inner="false"
+                        data-animation-duration="500"
+                        data-animation-rule="linear"
+                        data-value-dec="0"
+                        data-value-box="2"
+
+                        data-width="1"
+                        data-height="1"
+
+                        id="windaveragegauge"
+                ></canvas>
             </div>
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <div id="windgauge" style="width: 100%;"></div>
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                <canvas data-type="radial-gauge"
+                        data-units="°C"
+                        data-title="Temperature"
+                        data-min-value="-10"
+                        data-max-value="40"
+                        data-major-ticks="[-10,0,10,20,30,40]"
+                        data-minor-ticks="10"
+                        data-stroke-ticks="true"
+                        data-highlights='[ {"from": -10, "to": 0, "color": "rgba(255,0, 0, .5)"},{"from": 30, "to": 40, "color": "rgba(255, 0, 0, .5)"} ]'
+                        data-color-plate="#eee"
+                        data-border-shadow-width="0"
+                        data-borders="false"
+                        data-needle-type="arrow"
+                        data-needle-width="2"
+                        data-needle-circle-size="7"
+                        data-needle-circle-outer="true"
+                        data-needle-circle-inner="false"
+                        data-animation-duration="500"
+                        data-animation-rule="linear"
+                        data-color-needle-shadow-down="#333"
+                        data-color-needle-circle-outer="#333"
+                        data-color-needle-circle-outer-end="#111"
+                        data-color-needle-circle-inner="#111"
+                        data-color-needle-circle-inner-end="#222"
+                        data-value-box="false"
+
+                        data-width="1"
+                        data-height="1"
+
+                        id="tempgauge"
+                ></canvas>
             </div>
-            <div class="col-md-2" style="padding: 1px; margin: 0px;">
-                <img id="compassimage" src="assets/img/compass/Compass.png" style="width: 100%; padding: 9px;" alt="compass"/>
+            <div class="col-md-2 col-sm-4 guagedivcol">
+                    <canvas data-type="radial-gauge"
+                        data-units="Humidity (%)"
+                        data-min-value="60"
+                        data-max-value="100"
+                        data-major-ticks="60,70,80,90,100"
+                        data-minor-ticks="10"
+                        data-stroke-ticks="true"
+                        data-highlights='[{"from": 90, "to": 100, "color": "rgba(255, 0, 0, .75)"},{"from": 60, "to": 70, "color": "rgba(255, 0, 0, 0.75)"},{"from": 70, "to": 90, "color": "rgba(0, 255, 0, 0.75)"}]'
+                        data-color-plate="#eee"
+                        data-border-shadow-width="0"
+                        data-borders="false"
+                        data-value-box="false"
+                        data-needle-type="arrow"
+                        data-needle-width="2"
+                        data-needle-circle-size="7"
+                        data-needle-circle-outer="true"
+                        data-needle-circle-inner="false"
+                        data-animation-duration="500"
+                        data-animation-rule="linear"
+                        data-value="80"
+
+                        data-width="1"
+                        data-height="1"
+
+                        id="humiditygauge"
+                ></canvas>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="chart_div"></div>
             </div>
         </div>
         <div class="row">
@@ -79,16 +243,14 @@
             <div class="col-lg-12 datadisplay" style="text-align: right;">
                 <div id="lastupdate" style="font-style: italic;"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
             </div>
-            <div class="col-lg-12" style="text-align: center;">
-                <br/>
+            <div class="col-lg-12" style="text-align: center; margin-top: 20px;">
+                <a href="https://port-tides.com" target="_blank" class="btn btn-default"><i class="fa fa-moon-o"></i> Tide Times</a>
+                <a href="https://www.metoffice.gov.uk/public/weather/forecast/gcmj194pc" target="_blank" class="btn btn-default"><i class="fa fa-cloud"></i> Weather Forcast</a>
                 <button data-toggle="modal" data-target="#aboutwindmodal" class="btn btn-default"><i class="fa fa-table"></i> Data Information</button>
                 <button data-toggle="modal" data-target="#downloadmodal" class="btn btn-default"><i class="fa fa-cloud-download"></i> Data Download</button>
-                <button data-toggle="modal" data-target="#aboutmodal" class="btn btn-default"><i
-                        class="fa fa-info-circle"></i> About</button>
-                <a href="https://stats.uptimerobot.com/k5YBksXJ7" target="_blank" type="button" class="btn btn-default"><i
-                        class="fa fa-cloud"></i> System Self-Monitoring</a>
-                <br/>
-                <h4>
+                <button data-toggle="modal" data-target="#aboutmodal" class="btn btn-default"><i class="fa fa-info-circle"></i> About</button>
+                <a href="https://stats.uptimerobot.com/k5YBksXJ7" target="_blank" type="button" class="btn btn-default"><i class="fa fa-medkit"></i> System Self-Monitoring</a>
+                <h4 style="margin-top: 15px;">
                     <a class="hidden-xs hidden-sm" href="http://sailing-club.org" target="_blank">Porthmadog Sailing
                         Club, The Harbour, Porthmadog, Gwynedd, LL49 9AY</a><a href="?" class="hidden-xs hidden-sm"> |
                     Site </a>&copy;2017 <a href="https://www.jbithell.com">James Bithell</a>
@@ -155,6 +317,9 @@
                 <p>The system tracks weather in the Porthmadog estury using a Davis Vantage Vue and a Raspberry Pi</p>
                 <p>The developer would like to thank Alan Butler for his support and installation of the Davis device</p>
                 <p>Originally Developed in May 2017 by James Bithell</p>
+            </div>
+            <div class="modal-footer">
+                <a href="https://github.com/jbithell/PSCWeatherStation" class="btn btn-default" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Github</a>
             </div>
         </div>
     </div>

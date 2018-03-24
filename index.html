@@ -18,8 +18,8 @@
     <meta name="theme-color" content="#ffffff">
 
     <script src="assets/jquery.min.js" onload="window.$ = window.jQuery;"></script>
-    <link; rel="stylesheet"; href="assets/bootstrap.min.css"/>
-        <script; type="text/javascript"; src="assets/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="assets/bootstrap.min.css" />
+    <script type="text/javascript" src="assets/bootstrap.min.js"></script>
     <!--Bootbox-->
     <script src="assets/bootbox.min.js"></script>
     <!-- Custom Fonts -->
@@ -31,6 +31,9 @@
     <!--Pace JS-->
     <link rel="stylesheet" href="assets/pace-theme-minimal.css" />
     <script data-pace-options='{ "ajax": true }' src='assets/pace.min.js'></script>
+    <!--Pusher-->
+    <script src="assets/pusher.min.js"></script>
+
     <style>
         /* This stuff isn't in the stylesheet as there were issues with relative paths */
         body {
@@ -41,6 +44,8 @@
             background-position: center bottom;
         }
     </style>
+    <script src="assets/config.js"></script>
+    <script src="assets/functions.js"></script>
     <script src="assets/main.js"></script>
 </head>
 <body>
@@ -241,7 +246,7 @@
             <div class="alert alert-warning" style="display: none;" id="stationcloseddialogue"><h1>Weather Station Closed</h1><p class="text-center" id="stationclosedmessage"></p></div>
             <div class="alert alert-warning" style="display: none;" id="outofdatedata"><strong>Warning!</strong> Data below is out of date!</div>
             <div class="col-lg-12 datadisplay" style="text-align: right;">
-                <div id="lastupdate" style="font-style: italic;"><i class="fa fa-refresh fa-spin fa-fw"></i></div>
+                <div id="lastupdateDiv" style="font-style: italic;"><span id="lastupdate"></span><span id="connectionstatus"></span></div>
             </div>
             <div class="col-lg-12" style="text-align: center; margin-top: 20px;">
                 <a href="https://port-tides.com" target="_blank" class="btn btn-default"><i class="fa fa-moon-o"></i> Tide Times</a>

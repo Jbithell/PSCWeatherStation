@@ -41,7 +41,8 @@ function pullServerData() {
                     if ((timedifference/60) > minutesbeforefail) {
                         //Over 1 hour out of date
                         $(".datadisplay").hide();
-                        $("#nodata").html('<strong>Error</strong> We have not received data from the Weather Station for ' + Math.round(timedifference/3600) + ' hour' + ((timedifference/3600) != 1 ? 's' : ''));
+
+                        $("#nodata").html('<h1>Weather Station Offline</h1><p class="text-center">We have not received data from the Weather Station for ' + Math.round(timedifference/3600) + ' hour' + ((timedifference/3600) != 1 ? 's' : '') + '.<br/>It could be offline for maintenance, or there could be a problem with the internet connection to the club.<br/><button type="button" class="btn btn-default"><a href="https://jbithell.freshdesk.com/support/solutions/articles/42000001330-weather-station-offline">Learn more</a></button></p>');
                         $("#nodata").fadeIn();
                     } else if ((timedifference/60) > minutesbeforewarn) {
                         //5 minutes or more (upto 1 hour) out of date

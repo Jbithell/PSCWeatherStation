@@ -52,9 +52,9 @@ function drawCharts(callback) { //Draw the charts
 }
 function displayData(dataPacket) { //Update the data in the charts
     gauges["winddirectiongauge"].value = dataPacket['windDirection'];
-    gauges["windgauge"].value = dataPacket['windSpeedMPH'];
-    gauges["windaveragegauge"].value = dataPacket['windSpeed10MinAverageMPH'];
-    gauges["windgustgauge"].value = dataPacket['windSpeed10MinGustMPH'];
+    gauges["windgauge"].value = dataPacket['windSpeed'];
+    gauges["windaveragegauge"].value = dataPacket['windSpeed10MinAverage'];
+    gauges["windgustgauge"].value = dataPacket['windSpeed10MinGust'];
     gauges["tempgauge"].value = dataPacket['temperatureC'];
     gauges["humiditygauge"].value = dataPacket['humidity'];
 

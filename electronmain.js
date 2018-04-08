@@ -1,6 +1,7 @@
 const electron = require('electron');
 // Module to control application life.
 const app = electron.app;
+const menu = electron.menu;
 // Module to create native browser window.
 const BrowserWindow = electron.BrowserWindow;
 const shell = require('electron').shell;
@@ -15,9 +16,9 @@ let mainWindow;
 
 function createWindow () {
   // Create the browser window.
-  mainWindow = new BrowserWindow({width: 200, height: 200, icon: __dirname + '/assets/img/icon.ico'});
-  mainWindow.maximize();
-  // and load the index.html of the app.
+  mainWindow = new BrowserWindow({width: 1000, height: 820, icon: __dirname + '/assets/img/icon.ico'});
+  //mainWindow.maximize();
+
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'index.html'),
     protocol: 'file:',
@@ -25,8 +26,36 @@ function createWindow () {
   }));
 
   //mainWindow.webContents.openDevTools()
-  mainWindow.setMenu(null);
+    const {app, Menu} = require('electron')
 
+    const template = [
+        {
+            label: 'About',
+            click: function() {
+                mainWindow.webContents.executeJavaScript('$("#aboutModalShowButton").click();');
+            }
+        },
+        {
+            label: 'Data Information',
+            click: function() {
+                mainWindow.webContents.executeJavaScript('$("#dataInfoModalShowButton").click();');
+            }
+        },
+        {
+            label: 'System Monitoring',
+            click() {
+                require('electron').shell.openExternal('https://pscmonitoring.jbithell.com/')
+            }
+        },
+        {
+            label: 'Web Version',
+            click() {
+                require('electron').shell.openExternal('https://weather.port-tides.com/')
+            }
+        }
+    ]
+    const menu = Menu.buildFromTemplate(template)
+    Menu.setApplicationMenu(menu)
   // Emitted when the window is closed.
   mainWindow.on('closed', function () {
     // Dereference the window object, usually you would store windows

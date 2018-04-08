@@ -17,7 +17,8 @@
     <meta name="msapplication-config" content="assets/img/webicons/browserconfig.xml">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="assets/jquery.min.js" onload="window.$ = window.jQuery;"></script>
+    <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+    <script src="assets/jquery.min.js"></script>
     <link rel="stylesheet" href="assets/bootstrap.min.css"/>
     <script type="text/javascript" src="assets/bootstrap.min.js"></script>
     <!--Bootbox-->
@@ -47,13 +48,14 @@
     <script src="assets/config.js"></script>
     <script src="assets/functions.js"></script>
     <script src="assets/main.js"></script>
+    <script>if (window.module) module = window.module;</script>
 </head>
 <body>
 <div class="container">
     <div class="jumbotron" style="opacity: 0.8; margin-top: 25px; text-align: center;">
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
-                <h2>Porthmadog Sailing Club Weather Station</h2>
+                <h2 class="hiddenElectron">Porthmadog Sailing Club Weather Station</h2>
                 <div class="alert alert-danger" style="display: none;" id="nodata"><strong>Error</strong> We haven't been able to connect to the weather station to display data</div>
             </div>
         </div>
@@ -242,19 +244,20 @@
                 <div id="chart_div"></div>
             </div>
         </div>
-        <div class="row">
+        <div class="row ">
             <div class="alert alert-warning" style="display: none;" id="stationcloseddialogue"><h1>Weather Station Closed</h1><p class="text-center" id="stationclosedmessage"></p></div>
             <div class="alert alert-warning" style="display: none;" id="outofdatedata"><strong>Warning!</strong> Data is out of date!</div>
             <div class="col-lg-12 datadisplay" style="text-align: right;">
                 <div id="lastupdateDiv" style="font-style: italic;"><span id="lastupdate"></span><span id="connectionstatus"></span></div>
             </div>
-            <div class="col-lg-12" style="text-align: center; margin-top: 20px;">
+            <div class="col-lg-12 hiddenElectron" style="text-align: center; margin-top: 20px;">
                 <a href="https://port-tides.com" target="_blank" class="btn btn-default"><i class="fa fa-moon-o"></i> Tide Times</a>
                 <a href="https://www.metoffice.gov.uk/public/weather/forecast/gcmj194pc" target="_blank" class="btn btn-default"><i class="fa fa-cloud"></i> Weather Forcast</a>
-                <button data-toggle="modal" data-target="#aboutwindmodal" class="btn btn-default"><i class="fa fa-table"></i> Data Information</button>
+                <button data-toggle="modal" data-target="#aboutwindmodal" id="dataInfoModalShowButton" class="btn btn-default"><i class="fa fa-table"></i> Data Information</button>
                 <button data-toggle="modal" data-target="#downloadmodal" class="btn btn-default"><i class="fa fa-cloud-download"></i> Data Download</button>
-                <button data-toggle="modal" data-target="#aboutmodal" class="btn btn-default"><i class="fa fa-info-circle"></i> About</button>
                 <a href="https://pscmonitoring.jbithell.com" target="_blank" type="button" class="btn btn-default"><i class="fa fa-medkit"></i> System Self-Monitoring</a>
+                <a href="https://github.com/Jbithell/PSCWeatherStation/releases/latest" target="_blank" class="btn btn-default"><i class="fa fa-windows"></i> Download for Windows</a>
+                <button data-toggle="modal" data-target="#aboutmodal" id="aboutModalShowButton" class="btn btn-default"><i class="fa fa-info-circle"></i> About</button>
                 <h4 style="margin-top: 15px;">
                     <a class="hidden-xs hidden-sm" href="http://sailing-club.org" target="_blank">Porthmadog Sailing
                         Club, The Harbour, Porthmadog, Gwynedd, LL49 9AY</a><a href="?" class="hidden-xs hidden-sm"> |
@@ -383,21 +386,24 @@
 <!--62gW2d5ct2J78j69f8Wcvv452NeqEkvBe8R64kRA3K39t3GBGj-->
 <!--END JBITHELL.COM FLEET UPTIME TRACKING-->
 <script>
-    (function (i, s, o, g, r, a, m) {
-        i['GoogleAnalyticsObject'] = r;
-        i[r] = i[r] || function () {
-            (i[r].q = i[r].q || []).push(arguments)
-        }, i[r].l = 1 * new Date();
-        a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0];
-        a.async = 1;
-        a.src = g;
-        m.parentNode.insertBefore(a, m)
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') < -1) { //Don't track Google Analytics in Electron
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-    ga('create', 'UA-26373319-6', 'auto');
-    ga('send', 'pageview');
+        ga('create', 'UA-26373319-6', 'auto');
+        ga('send', 'pageview');
 
+    }
 </script>
 </body>
 </html>

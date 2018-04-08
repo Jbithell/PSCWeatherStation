@@ -4,7 +4,8 @@
   "description": "A weather station for Porthmaodg sailing club",
   "main": "electronmain.js",
   "scripts": {
-    "start": "electron ."
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "repository": "https://github.com/Jbithell/PSCWeatherStation",
   "keywords": [
@@ -12,10 +13,17 @@
     "jbithell"
   ],
   "author": "James Bithell",
-  "devDependencies": {
-    "electron": "~1.6.10"
-  },
   "dependencies": {
-    "jquery": "^3.2.1"
+    "jquery": ""
+  },
+  "build": {
+    "appId": "com.jbithell.pscweather"
+  },
+  "devDependencies": {
+    "electron-packager": "^12.0.0",
+    "electron": "^1.8.4"
+  },
+  "scripts": {
+    "start" : "electron ."
   }
 }

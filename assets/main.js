@@ -77,6 +77,10 @@ function pullServerData() {
 
 // On boot functions
 $( document ).ready(function() {
+    var userAgent = navigator.userAgent.toLowerCase();
+    if (userAgent.indexOf(' electron/') > -1) {
+        $(".hiddenElectron").hide();
+    }
     loadingdialog = bootbox.dialog({
         size: "small",
         message: '<p class="text-center"><i class="fa fa-spinner fa-5x fa-pulse"></i></p>',

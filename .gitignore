@@ -58,3 +58,6 @@ dist
 *.log
 
 .idea
+
+PSC-win32-ia32/
+PSC-win32-x64/

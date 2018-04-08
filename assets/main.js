@@ -55,18 +55,15 @@ function pullServerData() {
                     }
                     displayData(response.message);
                     loadingdialog.modal('hide');
-
-                    //How to handle new live Readings from this starting point onwards
-                    channel.bind('PSCWeatherDataLiveNEWReading', function(data) {
-                        $("#outofdatedata").hide();
-                        $("#nodata").hide();
-                        displayData(data.message.reading);
-                        $(".datadisplay").show();
-                    });
                 }
             }
-
-
+            //How to handle new live Readings from this starting point onwards
+            channel.bind('PSCWeatherDataLiveNEWReading', function(data) {
+                $("#outofdatedata").hide();
+                $("#nodata").hide();
+                displayData(data.message.reading);
+                $(".datadisplay").show();
+            });
         }, error: function (jqXHR, exception) {
             //If can't connect to internet/server show a modal explaining that
             nointernetdialog = bootbox.dialog({

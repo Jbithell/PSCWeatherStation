@@ -44,6 +44,9 @@
             background-size: cover;
             background-position: center bottom;
         }
+        .datadisplay {
+            display: none;
+        }
     </style>
     <script src="assets/config.js"></script>
     <script src="assets/functions.js"></script>
@@ -56,7 +59,6 @@
         <div class="row">
             <div class="col-lg-10 col-lg-offset-1">
                 <h2 class="hiddenElectron">Porthmadog Sailing Club Weather Station</h2>
-                <div class="alert alert-danger" style="display: none;" id="nodata"><strong>Error</strong> We haven't been able to connect to the weather station to display data</div>
             </div>
         </div>
         <div class="row datadisplay" id="maindisplayrow">
@@ -245,29 +247,24 @@
             </div>
         </div>
         <div class="row ">
-            <div class="alert alert-warning" style="display: none;" id="stationcloseddialogue"><h1>Weather Station Closed</h1><p class="text-center" id="stationclosedmessage"></p></div>
-            <div class="alert alert-warning" style="display: none;" id="outofdatedata"><strong>Warning!</strong> Data is out of date!</div>
             <div class="col-lg-12 datadisplay" style="text-align: right;">
                 <div id="lastupdateDiv" style="font-style: italic;"><span id="lastupdate"></span><span id="connectionstatus"></span></div>
             </div>
             <div class="col-lg-12 hiddenElectron" style="text-align: center; margin-top: 20px;">
                 <a href="https://port-tides.com" target="_blank" class="btn btn-default"><i class="fa fa-moon-o"></i> Tide Times</a>
-                <a href="https://www.metoffice.gov.uk/public/weather/forecast/gcmj194pc" target="_blank" class="btn btn-default"><i class="fa fa-cloud"></i> Weather Forcast</a>
+                <a href="https://www.metoffice.gov.uk/public/weather/forecast/gcmj194pc" target="_blank" class="btn btn-default"><i class="fa fa-cloud"></i> Weather Forecast</a>
                 <button data-toggle="modal" data-target="#aboutwindmodal" id="dataInfoModalShowButton" class="btn btn-default"><i class="fa fa-table"></i> Data Information</button>
-                <button data-toggle="modal" data-target="#downloadmodal" class="btn btn-default"><i class="fa fa-cloud-download"></i> Data Download</button>
-                <a href="https://pscmonitoring.jbithell.com" target="_blank" type="button" class="btn btn-default"><i class="fa fa-medkit"></i> System Self-Monitoring</a>
-                <a href="https://github.com/Jbithell/PSCWeatherStation/releases/latest" target="_blank" class="btn btn-default"><i class="fa fa-windows"></i> Download for Windows</a>
                 <button data-toggle="modal" data-target="#aboutmodal" id="aboutModalShowButton" class="btn btn-default"><i class="fa fa-info-circle"></i> About</button>
                 <h4 style="margin-top: 15px;">
                     <a class="hidden-xs hidden-sm" href="http://sailing-club.org" target="_blank">Porthmadog Sailing
                         Club, The Harbour, Porthmadog, Gwynedd, LL49 9AY</a><a href="?" class="hidden-xs hidden-sm"> |
-                    Site </a>&copy;2017-2018 <a href="https://www.jbithell.com">James Bithell</a>
+                    Site </a>&copy;2017-2020 <a href="https://www.jbithell.com">James Bithell</a>
                 </h4>
             </div>
         </div>
     </div>
 </div>
-<div id="downloadmodal" class="modal fade" role="dialog">
+<!--<div id="downloadmodal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -313,7 +310,7 @@
             </div>
         </div>
     </div>
-</div>
+</div>-->
 <div id="aboutmodal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -327,7 +324,6 @@
                 <p>Originally Developed in May 2017 by James Bithell</p>
             </div>
             <div class="modal-footer">
-                <a href="https://jbithell.freshdesk.com/support/tickets/new" class="btn btn-default" target="_blank"><i class="fa fa-question-circle" aria-hidden="true"></i> Contact</a>
                 <a href="https://github.com/jbithell/PSCWeatherStation" class="btn btn-default" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Github</a>
             </div>
         </div>
